@@ -5,7 +5,7 @@ from flask import Flask
 from .controllers.site import bp
 
 
-def creat_app():
+def create_app():
 	app = Flask(__name__)
 
 	app.register_blueprint(bp)
