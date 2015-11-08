@@ -125,6 +125,6 @@ var Filtertable = React.createClass({
 });
 
 React.render(
-  <Filtertable posts={posts} url='/search' / >,
+  <Filtertable url='/search' / >,
   document.getElementById('content')
   );
