@@ -1,4 +1,4 @@
-#/usr/bin/env python
+#!/usr/bin/env python
 # coding: utf-8
 
 from flask.ext.script import Manager
@@ -10,7 +10,6 @@ PORT = 8888
 
 app = create_app()
 manager = Manager(app)
-
 
 @manager.command
 def run():
@@ -31,6 +30,10 @@ def run():
 @manager.command
 def create_db():
 	db.create_all()
+
+@manager.command
+def test():
+    unittest.main()
 
 if __name__ == "__main__":
 	manager.run()
