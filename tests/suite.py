@@ -6,6 +6,8 @@ from app.model import db
 import unittest
 
 class BaseSuite(unittest.TestCase):
+
+    #重写setUp，搭建测试环境，注意大小写
     def setUp(self):
 
         app = create_app()
