@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class User(db.Model):
+
     id = db.Column(db.Integer, primary_key=True, unique=True)
     name = db.Column(db.String(50),  unique=True)
     email = db.Column(db.String(50),  unique=True)
@@ -17,9 +18,10 @@ class User(db.Model):
 
        
 class Blog(db.Model):
+
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    use_id  = db.Column(db.Integer, ForeignKey('use.id'))
-    use_name = db.Column(db.String(50), ForeignKey('use.name'))
+    user_id  = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_name = db.Column(db.String(50) )
     title = db.Column(db.String(50),  unique=True)
     time_creat = db.Column(db.DateTime, default=datetime.now)
     content = db.Column(db.String())
@@ -28,13 +30,24 @@ class Blog(db.Model):
     comments = db.relationship('Comment')
     # user = db.relationship("User", backref=backref('blog', ))
 
-    def __init__(self, use_id, title, content):
-
+    def __init__(self, user, title, content):
+        self.user_id = user.id
+        self.user_name = user.name
+        self.title = title
+        self.content = content
+        self.summary = content[:50]
 
 class Comment(db.Model):
+
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    blog_id = db.Column(db.Integer, ForeignKey('blog.id'))
-    use_id  = db.Column(db.Integer, ForeignKey('use.id'))
-    use_name = db.Column(db.String(50),  unique=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))
+    user_id  = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_name = db.Column(db.String(50),  unique=True)
     content = db.Column(db.String())
     time_creat = db.Column(db.DateTime, default=datetime.now)
+
+    def __init__(self, user, blog, content):
+        self.blog_id = blog.id
+        self.user_id = user.id
+        self.user_name = user.name
+        self.content = content

@@ -4,6 +4,8 @@
 from app import create_app
 from app.model import db
 import unittest
+from app.model.models import *
+
 
 class BaseSuite(unittest.TestCase):
 
@@ -14,11 +16,11 @@ class BaseSuite(unittest.TestCase):
         self.app = app
         self.client = app.test_client()
 
-        with app.app_context():
-            db.init_app(app)
+        db.init_app(app)
+        db.app = app
+        with app.app_context():    
             db.drop_all()
             db.create_all()
-
 
     def tearDown(self):
         with self.app.app_context():
