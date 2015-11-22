@@ -1,17 +1,18 @@
 # coding: utf-8
 
 from flask import render_template, Blueprint
-from ..model import db
-from ..model.models import User
+from ..utils.data_api import DATA_API
 
+
+data = DATA_API()
 
 bp = Blueprint('site', __name__)
 
-def test_db():
-    user = User.query.first()
-    print user
 
 @bp.route('/')
+@bp.route('/blogs')
 def index():
-    test_db()
-    return render_template("index.html")
+    blogs = data.get_all_blogs()
+    return render_template("index.html", blogs=blogs)
+
+

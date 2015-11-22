@@ -117,14 +117,17 @@ var Filtertable = React.createClass({
   render: function() {
     return (
       <div>
-      <Searchbar onParaSubmit={this.handleParaSubmit}/>
+      // <Searchbar onParaSubmit={this.handleParaSubmit}/>
       <Poststable posts={this.state.posts} status={this.state.status}/>
       </div>
       );
   },
 });
 
+
+/*获取dom对象，传递属性，插入react组件*/
+var content_dom = document.getElementById('content')
 React.render(
-  <Filtertable url='/search' / >,
-  document.getElementById('content')
+  <Filtertable url='/search' blogs=content_dom.getAttribute('blogs') />,
+  content_dom
   );
